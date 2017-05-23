@@ -1,7 +1,8 @@
 #python 3.5
 #栅栏密码
 
-e = 'f5-lf5aa9gc9{-8648cbfb4f979c-c2a851d6e5-c}'
+e = 'rhasbenvaoylii'
+
 elen = len(e)
 field=[]
 for i in range(2, elen):
