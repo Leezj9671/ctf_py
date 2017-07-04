@@ -1,11 +1,11 @@
 from timedec import UsedTimeDec
 
-startyear = 2011
-startmonth = 12
-startday = 28
-endyear = 2012
-endmonth = 1
-endday = 2
+startyear = 1980
+startmonth = 1
+startday = 1
+endyear = 2017
+endmonth = 12
+endday = 31
 runyue = [2, 4, 6, 9, 11]
 
 @UsedTimeDec
