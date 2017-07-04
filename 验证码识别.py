@@ -7,7 +7,8 @@
 import os
 import requests
 import threading
-from ctf_py.timedec import UsedTimeDec
+from timedec import UsedTimeDec
+# import pytesseract
 
 threads = []
 lock = threading.Lock()
@@ -33,10 +34,11 @@ def run(i):
     # s.get(index_url + '#')
     global cnt
     global res
-    with open('./captcha/captcha_{}.jpg'.format(i), 'wb') as f:
+    with open('../captcha/captcha_{}.jpg'.format(i), 'wb') as f:
         f.write(requests.get(img_url, headers=header).content)
     # lock.acquire()
-    captcha = os.popen('py -2 ./pytesseract.py ' + './captcha/captcha_{}.jpg'.format(i)).read()
+    captcha = os.popen('py -2 ./pytesseract.py ' + '../captcha/captcha_{}.jpg'.format(i)).read()
+    # captcha = pytesseract.image_to_string('./captcha/captcha_{}.jpg'.format(i))
     # lock.release()
     #对该验证码优化
     captcha = captcha.strip()
@@ -66,7 +68,8 @@ def main():
     # for t in threads:
     #     t.join()
 
-    for root , dirs, files in os.walk(r'.\\captcha\\'):
+    # 执行删除验证码图片
+    for root , dirs, files in os.walk(r'..\\captcha\\'):
         for name in files:
             if name.endswith(".jpg"):
                 os.remove(os.path.join(root, name))

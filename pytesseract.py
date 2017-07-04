@@ -42,7 +42,7 @@ http://wiki.github.com/hoffstaetter/python-tesseract
 '''
 
 # CHANGE THIS IF TESSERACT IS NOT IN YOUR PATH, OR IS NAMED DIFFERENTLY
-tesseract_cmd = r'.\Tesseract-OCR\tesseract.exe'
+tesseract_cmd = r'..\Tesseract-OCR\tesseract.exe'
 
 # import Image
 from PIL import Image
