@@ -35,6 +35,7 @@ def getFrequency(cipher, keyPoolList):
                 posFreq[k][p] = posFreq[k][p] + 1 if p in posFreq[k] else 1
         freqList.append(posFreq)
     return freqList
+
 def calCorrelation(cpool):
     '''传入字典，形如{'e':2,'p':3}
         返回可能性，0~1,值越大可能性越大
@@ -50,6 +51,7 @@ def calCorrelation(cpool):
         if i in fpool:
             relative += frequencies[i] * cpool[i] / total
     return relative
+
 def analyseFrequency(cfreq):
     key = []
     for posFreq in cfreq:
@@ -61,6 +63,7 @@ def analyseFrequency(cfreq):
                 keychar = keyChr
         key.append(keychar)
     return key
+
 def vigenereDecrypt(cipher, key):
     plain = ''
     cur = 0
@@ -69,8 +72,9 @@ def vigenereDecrypt(cipher, key):
         plain += chr(c ^ key[cur])
         cur = (cur + 1) % ll
     return plain
-def getKeyPool(cipher, stepSet, plainSet, keySet):
 
+def getKeyPool(cipher, stepSet, plainSet, keySet):
+    # 得到的是密钥长度和每一个密钥对应的可能值
     keyPool = dict()
     for step in stepSet:
         maybe = [None] * step
@@ -78,7 +82,9 @@ def getKeyPool(cipher, stepSet, plainSet, keySet):
             maybe[pos] = []
             for k in keySet:
                 flag = 1
+                # 因为是循环异或，所以每个字节的key会去加密多个字节的明文，我们就可以如法炮制，大大缩小key的每个字节的候选字符集。cipher[pos::step]的解释
                 for c in cipher[pos::step]:
+                    # 如果异或后的结果不在可见字符中，则跳出
                     if c ^ k not in plainSet:
                         flag = 0
                 if flag:
@@ -91,14 +97,13 @@ def getKeyPool(cipher, stepSet, plainSet, keySet):
             keyPool[step] = maybe
     return keyPool
 
-
 def main():
     pt = list(range(32,127))
     key = list(range(0xff + 1))
     klen = list(range(1, 14))
     cipher = getCipher('vig.txt')
     keyPool = getKeyPool(cipher=cipher, stepSet=klen, plainSet=pt, keySet=key)
-    print(keyPool)
+    print(keyPool.)
     for i in keyPool:
         freq = getFrequency(cipher, keyPool[i])
         key = analyseFrequency(freq)
@@ -107,4 +112,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
